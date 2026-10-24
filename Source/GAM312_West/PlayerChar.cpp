@@ -108,10 +108,11 @@ void APlayerChar::StopJump()
 void APlayerChar::FindObject()
 {
 	FHitResult HitResult;
+	
+	FVector StartLocation = PlayerCamComp->GetComponentLocation();                           // line trace start 
+	FVector Direction = PlayerCamComp->GetForwardVector() * 800.0f;                          // line trace distance
+	FVector EndLocation = StartLocation + Direction;                                         // line trace end
 
-	FVector StartLocation = PlayerCamComp->GetComponentLocation();
-	FVector Direction = PlayerCamComp->GetForwardVector() * 800.0f;
-	FVector EndLocation = StartLocation + Direction;
 
 	FCollisionQueryParams QueryParams;
 	QueryParams.AddIgnoredActor(this);
@@ -268,9 +269,10 @@ void APlayerChar::SpawnBuilding(int buildingID, bool& isSuccess)
 
 			FActorSpawnParameters SpawnParams;
 
-			FVector StartLocation = PlayerCamComp->GetComponentLocation();
-			FVector Direction = PlayerCamComp->GetForwardVector() * 400.0f;
-			FVector EndLocation = StartLocation + Direction;
+			FVector StartLocation = PlayerCamComp->GetComponentLocation();                   // building comp placement start point
+			FVector Direction = PlayerCamComp->GetForwardVector() * 400.0f;                  // sets building comp 400 units in front of start
+			FVector EndLocation = StartLocation + Direction;                                 // end point
+
 
 			FRotator myRot(0, 0, 0);
 
